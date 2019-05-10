@@ -21,7 +21,11 @@
     "url": "git://github.com/kaelzhang/next-css.git"
   },
   "keywords": [
-    "@ostai/next-css"
+    "@ostai/next-css",
+    "next-css",
+    "next-plugin",
+    "css-loader",
+    "postcss-loader"
   ],
   "engines": {
     "node": ">= 6"
