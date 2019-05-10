@@ -1,0 +1,48 @@
+{
+  "name": "@ostai/next-css",
+  "version": "1.0.0",
+  "description": "Import `.css` files in your Next.js project. A @zeit/next-css fork to solve several anti-pattern issues.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "NODE_DEBUG=@ostai/next-css nyc ava --timeout=10s --verbose",
+    "test:dev": "NODE_DEBUG=@ostai/next-css nyc ava --timeout=10s --verbose && npm run report:dev",
+    "lint": "eslint .",
+    "fix": "eslint . --fix",
+    "posttest": "npm run report",
+    "report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "report:dev": "nyc report --reporter=html && npm run report:open",
+    "report:open": "open coverage/index.html"
+  },
+  "files": [
+    "src/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kaelzhang/next-css.git"
+  },
+  "keywords": [
+    "@ostai/next-css"
+  ],
+  "engines": {
+    "node": ">= 6"
+  },
+  "ava": {
+    "babel": false,
+    "files": [
+      "test/*.test.js"
+    ]
+  },
+  "author": "kaelzhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kaelzhang/next-css/issues"
+  },
+  "devDependencies": {
+    "ava": "^1.4.1",
+    "codecov": "^3.3.0",
+    "nyc": "^13.3.0",
+    "@ostai/eslint-config": "^3.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint": "^5.16.0"
+  }
+}
