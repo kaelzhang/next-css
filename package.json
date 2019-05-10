@@ -4,8 +4,8 @@
   "description": "Import `.css` files in your Next.js project. A @zeit/next-css fork to solve several anti-pattern issues.",
   "main": "src/index.js",
   "scripts": {
-    "test": "NODE_DEBUG=@ostai/next-css nyc ava --timeout=10s --verbose",
-    "test:dev": "NODE_DEBUG=@ostai/next-css nyc ava --timeout=10s --verbose && npm run report:dev",
+    "test": "NODE_DEBUG=next-css nyc ava --timeout=10s --verbose",
+    "test:dev": "NODE_DEBUG=next-css nyc ava --timeout=10s --verbose && npm run report:dev",
     "lint": "eslint .",
     "fix": "eslint . --fix",
     "posttest": "npm run report",
@@ -37,12 +37,21 @@
   "bugs": {
     "url": "https://github.com/kaelzhang/next-css/issues"
   },
+  "dependencies": {
+    "css-loader": "^2.1.1",
+    "extract-css-chunks-webpack-plugin": "^4.3.2",
+    "find-up": "^3.0.0",
+    "ignore-loader": "~0.1.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-loader": "^3.0.0"
+  },
   "devDependencies": {
+    "@ostai/eslint-config": "^3.1.1",
     "ava": "^1.4.1",
-    "codecov": "^3.3.0",
-    "nyc": "^13.3.0",
-    "@ostai/eslint-config": "^3.0.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint": "^5.16.0"
+    "codecov": "^3.4.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-import": "^2.17.2",
+    "nyc": "^14.1.1",
+    "webpack": "^4.31.0"
   }
 }
