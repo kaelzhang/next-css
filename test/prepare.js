@@ -1,20 +1,31 @@
 const next = require('next')
 const nextBuild = require('next/dist/build').default
-const path = require('path')
 const supertest = require('supertest')
+const fixtures = require('test-fixture')
 
 const withCSS = require('../src')
 
-const fixture = (...args) => path.join(__dirname, 'fixtures', ...args)
+const DEFAULT_NAME = 'template'
 
-const prepare = async ({
-  dir,
-  dev = true
+const prepare = async (name, {
+  dev = true,
+  // actions = [],
+  config = {}
 }) => {
-  dir = fixture(dir)
+  const {resolve, copy, fixture} = fixtures(DEFAULT_NAME)
+
+  if (name !== DEFAULT_NAME) {
+    await copy({
+      clean: true,
+      to: fixture(name)
+    })
+  }
+
+  const dir = resolve()
 
   const conf = withCSS({
-    distDir: '.next'
+    distDir: '.next',
+    ...config
   })
 
   if (!dev) {

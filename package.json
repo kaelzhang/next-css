@@ -63,6 +63,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "supertest": "^4.0.2",
+    "test-fixture": "^2.4.0",
     "webpack": "^4.31.0"
   }
 }
