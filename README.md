@@ -17,11 +17,12 @@
 
 Import `.css` files in your Next.js project
 
-This is a @zeit/next-css **FORK** which:
+This is a `@zeit/next-css` **FORK** which:
 
 - uses `require.resolve` to get dependency `*-loader` so that there won't be environment issues
 - is tested.
 - fixes peer dependencies
+- supports options only for `@ostai/next-css` plugin
 
 ## Installation
 
@@ -34,14 +35,16 @@ npm i @ostai/next-css
 The stylesheet is compiled to `.next/static/css`. Next.js will automatically add the css file to the HTML.
 In production a chunk hash is added so that styles are updated when a new version of the stylesheet is deployed.
 
+```js
+const withCSS = require('@ostai/next-css')
+```
+
 ### Without CSS modules
 
 Create a `next.config.js` in the root of your project (next to pages/ and package.json)
 
 ```js
 // next.config.js
-const withCSS = require('@ostai/next-css')
-
 module.exports = withCSS()
 ```
 
@@ -67,7 +70,6 @@ __Note: CSS files can _not_ be imported into your [`_document.js`](https://githu
 
 ```js
 // next.config.js
-const withCSS = require('@ostai/next-css')
 module.exports = withCSS({
   cssModules: true
 })
@@ -89,6 +91,39 @@ import css from "../style.css"
 export default () => <div className={css.example}>Hello World!</div>
 ```
 
+### With `next-compose-plugins`
+
+```js
+const withPlugins = require('next-compose-plugins')
+module.exports = withPlugins([
+  withCSS
+], {
+  ...nextConfig
+})
+```
+
+### With specific `css-loader` path
+
+```js
+const withPlugins = require('next-compose-plugins')
+module.exports = withPlugins([
+  withCSS.options({
+    cssLoaderPath: require.resolve('/path/to/css-loader')
+  })
+], {
+  ...nextConfig
+})
+```
+
+#### withCSS.options(options)
+
+- **options?** `Object`
+  - **postCssLoaderPath?** `path` the `require.resolve()`d main entry of `postcss-loader`
+  - **cssLoaderPath?** `path` the main entry of `css-loader`
+  - **ignoreLoaderPath?** `path` the main entry of `ignore-loader`
+
+Create a new `withCSS` plugin with preset options.
+
 ### With CSS modules and options
 
 You can also pass a list of options to the `css-loader` by passing an object called `cssLoaderOptions`.
@@ -97,7 +132,6 @@ For instance, [to enable locally scoped CSS modules](https://github.com/css-modu
 
 ```js
 // next.config.js
-const withCSS = require('@ostai/next-css')
 module.exports = withCSS({
   cssModules: true,
   cssLoaderOptions: {
@@ -141,7 +175,6 @@ Create a `next.config.js` in your project
 
 ```js
 // next.config.js
-const withCSS = require('@ostai/next-css')
 module.exports = withCSS()
 ```
 
@@ -177,7 +210,6 @@ For example, to pass theme env variables to postcss-loader, you can write:
 
 ```js
 // next.config.js
-const withCSS = require('@ostai/next-css')
 module.exports = withCSS({
   postcssLoaderOptions: {
     parser: true,
@@ -198,7 +230,6 @@ Optionally you can add your custom Next.js configuration as parameter
 
 ```js
 // next.config.js
-const withCSS = require('@ostai/next-css')
 module.exports = withCSS({
   webpack(config, options) {
     return config

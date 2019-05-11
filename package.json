@@ -1,6 +1,6 @@
 {
   "name": "@ostai/next-css",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Import `.css` files in your Next.js project. A @zeit/next-css fork to solve several anti-pattern issues.",
   "main": "src/index.js",
   "scripts": {
