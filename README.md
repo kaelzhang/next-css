@@ -17,10 +17,11 @@
 
 Import `.css` files in your Next.js project
 
-This is a @zeit/next-css fork which:
+This is a @zeit/next-css **FORK** which:
 
 - uses `require.resolve` to get dependency `*-loader` so that there won't be environment issues
 - is tested.
+- fixes peer dependencies
 
 ## Installation
 
