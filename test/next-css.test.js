@@ -1,7 +1,8 @@
 const test = require('ava')
-const prepare = require('./prepare')
-
-const REGEX_CONTAINS_CSS = /href="[^"]+\.css"/
+const {
+  prepare,
+  containsCSS
+} = require('./prepare')
 
 test('normal, should contains .css', async t => {
   const {request} = await prepare({
@@ -13,5 +14,5 @@ test('normal, should contains .css', async t => {
     text
   } = await request.get('/index')
 
-  t.true(REGEX_CONTAINS_CSS.test(text))
+  t.true(containsCSS(text))
 })

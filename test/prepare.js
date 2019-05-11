@@ -37,4 +37,16 @@ const prepare = async ({
   }
 }
 
-module.exports = prepare
+const REGEX_CONTAINS_CSS = /href="[^"]+?\/[a-z]+(?:\.chunk)?\.css"/
+const REGEX_CONTAINS_HASHED_CSS = /href="[^"]+?\/[a-z]+\.[a-z0-9]+(?:\.chunk)?\.css"/
+
+const containsCSS = (text, dev) => (
+  dev
+    ? REGEX_CONTAINS_CSS
+    : REGEX_CONTAINS_HASHED_CSS
+).test(text)
+
+module.exports = {
+  prepare,
+  containsCSS
+}
