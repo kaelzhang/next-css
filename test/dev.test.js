@@ -7,6 +7,7 @@ const {
 test('dev, should contains .css', async t => {
   const {request} = await prepare('dev', {
     dev: true,
+    copy: true,
     config: {
       webpack (config) {
         return config

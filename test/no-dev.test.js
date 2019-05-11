@@ -6,7 +6,8 @@ const {
 
 test('not dev, should contains .css', async t => {
   const {request} = await prepare('no-dev', {
-    dev: false
+    dev: false,
+    copy: true
   })
 
   const {

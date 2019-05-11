@@ -5,16 +5,18 @@ const fixtures = require('test-fixture')
 
 const withCSS = require('../src')
 
-const DEFAULT_NAME = 'template'
+const TEMPLATE = 'template'
 
-const prepare = async (name, {
+const create = async (name, {
   dev = true,
-  // actions = [],
-  config = {}
+  copy: _copy = false,
+  config
 }) => {
-  const {resolve, copy, fixture} = fixtures(DEFAULT_NAME)
+  const {resolve, copy, fixture} = _copy
+    ? fixtures(TEMPLATE)
+    : fixtures(name)
 
-  if (name !== DEFAULT_NAME) {
+  if (_copy) {
     await copy({
       clean: true,
       to: fixture(name)
@@ -23,10 +25,9 @@ const prepare = async (name, {
 
   const dir = resolve()
 
-  const conf = withCSS({
-    distDir: '.next',
-    ...config
-  })
+  const conf = config
+    ? withCSS(config)
+    : withCSS()
 
   if (!dev) {
     await nextBuild(dir, conf)
@@ -37,6 +38,12 @@ const prepare = async (name, {
     conf,
     dir
   })
+
+  return app
+}
+
+const prepare = async (name, options) => {
+  const app = await create(name, options)
 
   await app.prepare()
 
@@ -58,6 +65,7 @@ const containsCSS = (text, dev) => (
 ).test(text)
 
 module.exports = {
+  create,
   prepare,
   containsCSS
 }

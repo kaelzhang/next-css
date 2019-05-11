@@ -1,6 +1,7 @@
 test/fixtures/**/.next/
 test/fixtures/*
 !test/fixtures/template
+!test/fixtures/document
 
 # Node, Coverage, NPM
 /.nyc_output
