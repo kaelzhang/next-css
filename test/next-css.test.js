@@ -1,7 +1,17 @@
 const test = require('ava')
-const log = require('util').debuglog('next-css')
-const css = require('../src')
+const prepare = require('./prepare')
 
-test('description', t => {
-  t.is(true, true)
+const REGEX_CONTAINS_CSS = /href="[^"]+\.css"/
+
+test('normal, should contains .css', async t => {
+  const {request} = await prepare({
+    dir: 'normal',
+    dev: false
+  })
+
+  const {
+    text
+  } = await request.get('/index')
+
+  t.true(REGEX_CONTAINS_CSS.test(text))
 })
